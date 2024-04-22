@@ -18,7 +18,7 @@ const HomeScreen = () => {
           <Text style={{color: 'black',fontSize: 13,fontWeight: 'bold',marginLeft:20,marginTop:10}}>总资产</Text>
         </View>
         <View>
-          <Text style={{color: '#3FBC7E',fontSize: 20,fontWeight: 'bold',marginLeft:20,marginTop:15}}>¥99999.99</Text>
+          <Text style={{color: '#3FBC7E',fontSize: 20,fontWeight: 'bold',marginLeft:20,marginTop:15}}>¥199999.99</Text>
         </View>
       </View>
       </View>
