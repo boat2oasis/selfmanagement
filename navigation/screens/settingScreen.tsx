@@ -1,195 +1,188 @@
-import React from 'react';
-import { View, ScrollView,Text, StyleSheet,Image, ImageBackground,TextInput,TouchableOpacity} from 'react-native';
-const HomeScreen = () => {
+import React, {useState} from 'react';
+import {Alert, Modal, StyleSheet,
+  TextInput, Text,Image, Pressable, View,Keyboard, TouchableWithoutFeedback} from 'react-native';
+
+function inputOnFocus(){
+  console.log("Hello world");
+}
+
+const SettingScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
-    <ScrollView style={{backgroundColor:'#FFFFFF'}}>
-   <ImageBackground
-      source={require('./assets/background.png')}
-      resizeMode="stretch"
-      style={styles.image}
-    >
-      <View style={styles.container}>
-        <Text style={styles.text}>我的账本</Text>
-      </View>
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>支出.消费</Text>
 
-      <View style={{alignItems: 'center'}}>
-      <View style={styles.totalAssert}>
-        <View>
-          <Text style={{color: 'black',fontSize: 13,fontWeight: 'bold',marginLeft:20,marginTop:10}}>总资产</Text>
-        </View>
-        <View>
-          <Text style={{color: '#3FBC7E',fontSize: 20,fontWeight: 'bold',marginLeft:20,marginTop:15}}>¥999.99</Text>
-        </View>
-      </View>
-      </View>
+            <View style={{flexDirection: 'row',width:300}}>
+              <Text style={styles.modalText}>选择账户</Text>
+              <Text style={styles.modalText}>支出类型</Text>
+              <Text style={styles.modalText}>消费时间</Text>
+            </View>
 
-      <View>
-      <View style={styles.searchAndAddAssert}>
+            <View style={{flexDirection:'row',width:300}}> 
+    
+                  <Image
+                      source={require('./assets/rmb.png')}
+                      style={{width: 16, height: 16,marginLeft:16,marginTop:17}}
+                    />
+                    <View pointerEvents="none">
+                  <TextInput
+                    style={{}}
+                    autoFocus={false}
+                    placeholder=""
+                  />
+                </View>
+            </View>
 
-        <View style={styles.searchAssert}> 
-          <Image
-              source={require('./assets/search.png')}
-              style={{width: 16, height: 16,marginLeft:8}}
+            <View style={{flexDirection:'row',width:280}}>
+            <TextInput
+              style={{}}
+              placeholder="请输入备注内容"
             />
-          <TextInput
-            style={{}}
-            placeholder="搜索资产"
-          />
+          </View>
+
+          <View style={{flexDirection:'row',justifyContent:'space-between',width:250}}>
+            <View>
+              <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  1
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  2
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  3
+                </Text>
+              </View>
+
+              <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  4
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  5
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  6
+                </Text>
+              </View>
+
+              <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  7
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  8
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  9
+                </Text>
+              </View>
+              
+
+              <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  .
+                </Text >
+                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                  0
+                </Text >
+              </View>
+            </View>
+
+            <View>
+            <Image
+              source={require('./assets/delete.png')}
+              style={{width: 20, height: 20,marginLeft:8}}
+            />
+
+            <View style={{backgroundColor:'#3CB278',width:50,height:120,
+    justifyContent: 'center', // 垂直居中
+    alignItems: 'center'}}>
+              <Text style={{color:'white'}}>保存</Text>
+            </View>
+
+            </View>
+          </View>
+          </View>
         </View>
-        <TouchableOpacity style={styles.addAssert}>
-        <Image
-            source={require('./assets/add.png')}
-            style={{width: 16, height: 16,marginLeft:8}}
-          />
-          <Text style={{color:'white',marginLeft:5,marginTop:-3}}>
-            添加资产
-          </Text>
-        </TouchableOpacity>
-      </View>
-      </View>
-      
-      <View style={styles.assertSummery}>
-        <Text style={{color:'black'}}>资金</Text>
-        <View style={styles.assertNumberSummery}>
-          <Text>共</Text>
-          <Text>800</Text>
+
+
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
         </View>
-      </View>
-
-      <View style={{marginTop:12}}>
-      
-      <View style={styles.assertsList}>
- 
-      <Image
-            source={require('./assets/zs.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>儲蓄卡-招商银行</Text>
-        <Text style={{marginLeft:120,color:"#FA5A61"}}>100.00</Text>
-       
-      </View>
-
-      <View style={styles.assertsList}>
-      <Image
-            source={require('./assets/zgyh.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>儲蓄卡-中国银行</Text>
-        <Text style={{marginLeft:120,color:"#FA5A61"}}>100.00</Text>
-       
-      </View>
-
-      <View style={styles.assertsList}>
-      <Image
-            source={require('./assets/wx.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>微信支付</Text>
-        <Text style={{marginLeft:168,color:"#FA5A61"}}>100.00</Text>
-       
-      </View>
 
 
-      <View style={styles.assertsList}>
-      <Image
-            source={require('./assets/zfb.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>支付宝</Text>
-        <Text style={{marginLeft:182,color:"#FA5A61"}}>100.00</Text>
-      </View>
-
-      <View style={styles.assertsList}>
-      <Image
-            source={require('./assets/jj.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>天天基金</Text>
-        <Text style={{marginLeft:170,color:"#FA5A61"}}>100.00</Text>
-      </View>
-
-
-
-     
-
-      
-
-
-      </View>
-
-    </ImageBackground>
-    </ScrollView>
+      </Modal>
+      <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-  assertsList:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft:20,
-    marginTop:14
-  },
-  assertNumberSummery:{
-    marginLeft:250,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  assertSummery:{
-    marginTop:20,
-    marginLeft:20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  searchAssert:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    height:40,
-  
-    marginLeft:20,
-    lineHeight:12,
-    width:190,
-    borderColor:'#000000',
-    backgroundColor:'#F9F9F9',
-    marginTop:16,
-    borderRadius:15,
-    
-  },
-  searchAndAddAssert:{
-    flexDirection: 'row',
-    alignItems: 'center',
-
-  },
-  addAssert: {
-    backgroundColor:'#FAA63D',
-    borderRadius:15,
-    marginLeft:40,
-    width:94,
-    marginTop:16,
-    height:32,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  image: {
+  centeredView: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
   },
-  totalAssert:{
-    marginTop:30,
-    width:320,
-    height:82,
-    backgroundColor:'white', 
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: '#F9EFEF',
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
-  container: {
-    marginLeft:20,
-    marginTop:45
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
   },
-  text: {
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
     color: 'white',
-    fontSize: 18,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    fontSize:16,
+    width:100,
+    color:'#404960',
+    textAlign: 'center',
   },
 });
 
-export default HomeScreen;
+export default SettingScreen;

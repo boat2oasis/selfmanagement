@@ -107,16 +107,7 @@ const HomeScreen = () => {
         <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>天天基金</Text>
         <Text style={{marginLeft:170,color:"#FA5A61"}}>100.00</Text>
       </View>
-
-
-
-     
-
-      
-
-
       </View>
-
     </ImageBackground>
     </ScrollView>
   );
