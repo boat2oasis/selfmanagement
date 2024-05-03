@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet,
-  TextInput, Text,Image, Pressable, View,Keyboard, TouchableWithoutFeedback} from 'react-native';
-function inputOnFocus(){
-  console.log("Hello world");
-}
-const SettingScreen = () => {
+import {Alert, Modal, StyleSheet,TextInput, Text,Image, Pressable, View} from 'react-native';
+
+const AccountScreenSelect = () => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.centeredView}>
@@ -19,7 +16,6 @@ const SettingScreen = () => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>支出.消费</Text>
-
             <View style={{flexDirection: 'row',width:300}}>
               <Text style={styles.modalText}>选择账户</Text>
               <Text style={styles.modalText}>支出类型</Text>
@@ -179,4 +175,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingScreen;
+export default AccountScreenSelect;

@@ -6,6 +6,7 @@ import HomeScreen from './screens/homeScreen';
 import DetailScreen from './screens/detailScreen';
 import SettingScreen from './screens/settingScreen';
 import MyScreen from './screens/myScreen';
+import AccountScreenSelect from './screens/accountScreenSelect';
 import Icon  from 'react-native-vector-icons/FontAwesome';
 
 const homeName = '全资产';
@@ -51,7 +52,7 @@ const MainContainer = () => {
         <Tab.Screen options={{headerShown: false}} 
         name={detailName} component={DetailScreen} />
         <Tab.Screen options={{headerShown: false}} name={staticName} component={SettingScreen} />
-        <Tab.Screen options={{headerShown: false}} name={myName} component={MyScreen} />
+        <Tab.Screen options={{headerShown: false}} name={myName} component={AccountScreenSelect} />
       </Tab.Navigator>
     </NavigationContainer>
     );
