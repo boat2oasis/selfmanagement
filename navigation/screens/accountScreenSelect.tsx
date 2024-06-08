@@ -3,6 +3,9 @@ import {Alert, Modal, StyleSheet,TextInput, Text,Image, Pressable, View} from 'r
 
 const AccountScreenSelect = () => {
   const [modalVisible, setModalVisible] = useState(false);
+  const putSpendVal = () => {
+    console.log('Modal has been closed.');
+  }
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -10,7 +13,8 @@ const AccountScreenSelect = () => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
+          //Alert.alert('Modal has been closed.');
+          console.log("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.centeredView}>
@@ -47,9 +51,12 @@ const AccountScreenSelect = () => {
           <View style={{flexDirection:'row',justifyContent:'space-between',width:250}}>
             <View>
               <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
-                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
-                  1
-                </Text >
+                <Pressable onPress={() => putSpendVal()}>
+                  <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                    1
+                  </Text >
+                </Pressable>
+
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   2
                 </Text >
@@ -114,7 +121,7 @@ const AccountScreenSelect = () => {
             <Text style={styles.modalText}>Hello World!</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => putSpendVal()}>
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
           </View>
@@ -122,7 +129,7 @@ const AccountScreenSelect = () => {
       </Modal>
       <Pressable
         style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
+        onPress={() => putSpendVal()}>
         <Text style={styles.textStyle}>Show Modal</Text>
       </Pressable>
     </View>

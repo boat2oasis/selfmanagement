@@ -97,7 +97,7 @@ const DetailScreen = () => {
             style={{width: 28, height: 28}}
           />
         <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>喝水</Text>
-        <Text style={{marginLeft:190,color:"#FA5A61"}}>-100.00</Text>
+        <Text style={{marginLeft:190,color:"#FA5A61"}}>-700.00</Text>
        
       </View>
 
@@ -107,7 +107,7 @@ const DetailScreen = () => {
             style={{width: 28, height: 28}}
           />
         <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>吃饭</Text>
-        <Text style={{marginLeft:190,color:"#FA5A61"}}>-100.00</Text>
+        <Text style={{marginLeft:190,color:"#FA5A61"}}>-800.00</Text>
       </View>
 
 
