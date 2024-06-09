@@ -1,6 +1,47 @@
-import React from 'react';
-import { View, ScrollView,Text, StyleSheet,Image, ImageBackground,TextInput,TouchableOpacity} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {Alert, View, ScrollView,Text, StyleSheet,
+  Image, ImageBackground,TextInput,TouchableOpacity} from 'react-native';
 const HomeScreen = () => {
+
+  const [accountList, setAccountList] = useState([]);
+
+
+  let title = "我的账本本"
+
+  interface Accountw {
+    id: number;
+    name: string;
+  }
+  
+  const accountListw: Accountw[] = [
+    { id: 1, name: 'Account1' },
+    { id: 2, name: 'Account2' },
+    { id: 3, name: 'Account3' },
+  ];
+
+  interface Account {
+    id: number;
+    accountName: string;
+    accountAmount: string;
+    accountIcon: string;
+  }
+ // let accountList: Account[] = [];
+
+  useEffect(() => {
+   // debugger
+    fetch('http://192.168.11.132:8080/acocunt/list')
+   .then(response => response.json())
+   .then(json => {
+    setAccountList(json.data)
+   console.error(accountList);
+
+   })
+   .catch(error => {
+     console.error(error);
+   });
+  })
+  
+ 
   return (
     <ScrollView style={{backgroundColor:'#FFFFFF'}}>
    <ImageBackground
@@ -9,7 +50,7 @@ const HomeScreen = () => {
       style={styles.image}
     >
       <View style={styles.container}>
-        <Text style={styles.text}>我的账本</Text>
+        <Text style={styles.text}>{title}</Text>
       </View>
 
       <View style={{alignItems: 'center'}}>
@@ -57,17 +98,28 @@ const HomeScreen = () => {
       </View>
 
       <View style={{marginTop:12}}>
+
+
+      {accountListw.map((account) => (
+        <Text key={account.id}>{account.name}</Text>
+      ))}
+
+      {accountList.map((item, index) => (
+        
+        <View style={styles.assertsList}>
+        
+        <Image
+              source={require('./assets/zs.png')}
+              style={{width: 28, height: 28}}
+            />
+          <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>{item.accountName}</Text>
+          <Text style={{marginLeft:120,color:"#FA5A61"}}>{item.accountAmount}</Text>
+          
+        </View>
+
+      ))}
       
-      <View style={styles.assertsList}>
- 
-      <Image
-            source={require('./assets/zs.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>儲蓄卡-招商银行</Text>
-        <Text style={{marginLeft:120,color:"#FA5A61"}}>100.00</Text>
-       
-      </View>
+      
 
       <View style={styles.assertsList}>
       <Image
