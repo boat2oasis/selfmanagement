@@ -58,6 +58,22 @@ const HomeScreen = () =>
             </View>
           </View>
       ))}
+
+{accountList.map((item,index) => (
+          <View style={styles.assertsList}>
+            <View style={[styles.assertsListLeft,styles.assertsListLeftCenter]}>
+            <Image
+                source={{ uri:item.accountIcon}}
+                style={{width: 28, height: 28}}
+            />
+            <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>{item.accountName}</Text>
+            </View>
+
+            <View style={styles.assertsListRight}>
+              <Text style={{color:"#FA5A61"}}>{item.accountAmount}</Text>
+            </View>
+          </View>
+      ))}
     </View>
     </ImageBackground>
     </ScrollView>
