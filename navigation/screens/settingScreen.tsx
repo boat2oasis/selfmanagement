@@ -1,6 +1,7 @@
 import React, {forwardRef,useState,useImperativeHandle} from 'react';
 import {Alert, Modal, StyleSheet,
   TextInput, Text,Image, Pressable, View} from 'react-native';
+import AccountList from './accountList';
   const SettingScreen = forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
@@ -50,6 +51,7 @@ import {Alert, Modal, StyleSheet,
                   />
                 </View>
             </View>
+            <AccountList></AccountList>
 
             <View style={{flexDirection:'row',width:280}}>
             <TextInput

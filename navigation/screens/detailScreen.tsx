@@ -64,7 +64,7 @@ import SettingScreen from './settingScreen';
       </View>
 
       <SettingScreen ref={childRef}/>
-
+    
 
       <View style={styles.assertsList}>
  
