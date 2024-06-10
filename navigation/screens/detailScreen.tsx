@@ -1,6 +1,23 @@
-import React from 'react';
-import { View, ScrollView,Text, StyleSheet,Image, ImageBackground,TextInput,TouchableOpacity} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView,Text, StyleSheet,Image} from 'react-native';
 const DetailScreen = () => {
+  const [daysList, setDaysList] = useState([[]])
+  const [monthInfo, setMonthInfo] = useState()
+  useEffect(() => {
+    // debugger
+     fetch('http://192.168.11.132:8080/acocunt/days')
+      .then(response => response.json())
+      .then(json => {
+        console.error(json.data.resultList)
+        setDaysList(json.data.resultList)
+        setMonthInfo(json.data.month)
+    })
+    .catch(error => {
+      console.error(error);
+    });
+   }, [])
+
+
   return (
     <ScrollView>
     <View>
@@ -12,71 +29,17 @@ const DetailScreen = () => {
           fontSize:20,
           fontStyle: 'italic',
           color:'black'
-        }}>2024年4月</Text>
+        }}>{monthInfo}</Text>
       </View>
-
-      <View style={{flexDirection: 'row'}}>
-        <Text style={{flex: 1,paddingTop:40}}>日</Text>
-        <Text style={{flex: 1,paddingTop:40}}>一</Text>
-        <Text style={{flex: 1,paddingTop:40}}>二</Text>
-        <Text style={{flex: 1,paddingTop:40}}>三</Text>
-        <Text style={{flex: 1,paddingTop:40}}>四</Text>
-        <Text style={{flex: 1,paddingTop:40}}>五</Text>
-        <Text style={{flex: 1,paddingTop:40}}>六</Text>
-      </View>
-
       <View>
 
-      <View style={{flexDirection: 'row'}}>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>31</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>1</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>2</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>3</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>4</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>5</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>6</Text>
-      </View>
-
-      <View style={{flexDirection: 'row'}}>
-      <Text style={{flex: 1,paddingTop:20,width:15}}>7</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>8</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>9</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>10</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>11</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>12</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>13</Text>
-      </View>
-
-      <View style={{flexDirection: 'row'}}>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>14</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>15</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>16</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>17</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>18</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>19</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>20</Text>
-      </View>
-
-
-      <View style={{flexDirection: 'row'}}>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>21</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>22</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>23</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>24</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>25</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>26</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>27</Text>
-      </View>
-
-      <View style={{flexDirection: 'row'}}>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>28</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>29</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>30</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>1</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>2</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>3</Text>
-        <Text style={{flex: 1,paddingTop:20,width:15}}>4</Text>
-      </View>
+      {daysList.map((itemList) => (
+        <View style={{flexDirection: 'row'}}>
+          {itemList.map((item) => (
+            <Text style={{flex: 1,paddingTop:20,width:15}}>{item}</Text>
+          ))}
+        </View>
+      ))}
       </View>
 
     <View style={{flexDirection: 'row',paddingTop:30}}>
