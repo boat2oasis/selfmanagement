@@ -8,6 +8,7 @@ import SettingScreen from './settingScreen';
   const [monthInfo, setMonthInfo] = useState()
   const putSpendVal = () => {
     if (childRef.current) {
+      //调用子组件方法，不影响系统正常运行
       childRef.current.doSetModalVisible();
     }
     setInitModalVisible(true)
