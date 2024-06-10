@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {View, ScrollView,Text, StyleSheet,Image, ImageBackground} from 'react-native';
-const HomeScreen = () => {
+const HomeScreen = () => 
+  {
   interface Account {
     id: number;
     accountName: string;

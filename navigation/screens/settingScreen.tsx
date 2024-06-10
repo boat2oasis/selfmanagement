@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {forwardRef,useState,useImperativeHandle} from 'react';
 import {Alert, Modal, StyleSheet,
-  TextInput, Text,Image, Pressable, View,Keyboard, TouchableWithoutFeedback} from 'react-native';
-const SettingScreen = () => {
- 
-  const [modalVisible, setModalVisible] = useState(true);
+  TextInput, Text,Image, Pressable, View} from 'react-native';
+  const SettingScreen = forwardRef((props, ref) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
-
   const putSpendVal = (i:string) => {
     setTotalVaule(totalVaule+i)
   }
+  useImperativeHandle(ref, () => ({
+    doSetModalVisible() {
+      setModalVisible(!modalVisible);
+    },
+  }));
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -23,7 +26,7 @@ const SettingScreen = () => {
           <View style={styles.modalView}>
             <Text style={styles.modalText}>支出.消费</Text>
             <View style={{flexDirection: 'row',width:300}}>
-
+            
               <Pressable onPress={() => putSpendVal("1")}>
                 <Text style={styles.modalText}>选择账户</Text>
               </Pressable>
@@ -129,14 +132,9 @@ const SettingScreen = () => {
           </View>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
     </View>
   );
-};
+});
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,

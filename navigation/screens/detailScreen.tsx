@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { View, ScrollView,Text, StyleSheet,Image} from 'react-native';
-const DetailScreen = () => {
+import React, { useEffect, useState,useRef } from 'react';
+import { View, ScrollView,Text,Alert, Button, StyleSheet,Image} from 'react-native';
+import SettingScreen from './settingScreen';
+  const DetailScreen: React.FC = () => {
+  const childRef = useRef(null);
   const [daysList, setDaysList] = useState([[]])
+  const [initModalVisible, setInitModalVisible] = useState(true)
   const [monthInfo, setMonthInfo] = useState()
+  const putSpendVal = () => {
+    if (childRef.current) {
+      childRef.current.doSetModalVisible();
+    }
+    setInitModalVisible(true)
+  }
   useEffect(() => {
     // debugger
      fetch('http://192.168.11.132:8080/acocunt/days')
       .then(response => response.json())
       .then(json => {
-        console.error(json.data.resultList)
         setDaysList(json.data.resultList)
         setMonthInfo(json.data.month)
     })
     .catch(error => {
-      console.error(error);
     });
    }, [])
-
-
   return (
     <ScrollView>
     <View>
@@ -32,7 +37,6 @@ const DetailScreen = () => {
         }}>{monthInfo}</Text>
       </View>
       <View>
-
       {daysList.map((itemList) => (
         <View style={{flexDirection: 'row'}}>
           {itemList.map((item) => (
@@ -49,8 +53,16 @@ const DetailScreen = () => {
         }}>今天</Text>
 
         <Text style={{paddingLeft:20,paddingTop:2}}>农历三月初九</Text>
+        
+        <View style={{paddingLeft:110,paddingTop:0}}>
+        <Button
+          title="新增记录"
+          onPress={() => putSpendVal()}
+        /></View>
 
       </View>
+
+      <SettingScreen ref={childRef}/>
 
 
       <View style={styles.assertsList}>
