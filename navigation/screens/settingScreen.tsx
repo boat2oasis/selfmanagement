@@ -2,15 +2,29 @@ import React, {forwardRef,useState,useImperativeHandle,useRef} from 'react';
 import {Alert, Modal, StyleSheet,
   TextInput, Text,Image, Pressable, View} from 'react-native';
 import AccountList from './accountList';
+
+
   const SettingScreen = forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
   const [accountValue, setAccountValue] = useState("选择账户");
 
-  //const doSetAccountValue = (data) => {
-    //setAccountValue(data);
-  //};
+  interface SpendMoney {
+    id: number;
+    accountId: string;
+    necessaryId: string;
+    spendAmount: string;
+    description: string;
+  }
 
+  const spendMoney: SpendMoney = {
+    id: 1,
+    accountId: "",
+    necessaryId: "",
+    spendAmount: "",
+    description: ""
+  };
+  
 
   //设置子组件
   const childRef = useRef(null);
@@ -22,6 +36,12 @@ import AccountList from './accountList';
     }
   }
 
+  const handleReceiveDataToParent = (id:number) => {
+    Alert.alert('id是'+id);
+  };
+
+
+
   const putSpendVal = (i:string) => {
     setTotalVaule(totalVaule+i)
   }
@@ -30,9 +50,6 @@ import AccountList from './accountList';
       setModalVisible(!modalVisible);
     },
   }));
-
-
-
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -71,7 +88,7 @@ import AccountList from './accountList';
                   />
                 </View>
             </View>
-            <AccountList  ref={childRef}/>
+            <AccountList receiveDataToParent={handleReceiveDataToParent}  ref={childRef}/>
 
             <View style={{flexDirection:'row',width:280}}>
             <TextInput
@@ -94,43 +111,70 @@ import AccountList from './accountList';
                     2
                   </Text >
                 </Pressable>
-                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
-                  3
-                </Text>
+
+                <Pressable onPress={() => putSpendVal("3")}>
+                  <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                    3
+                  </Text>
+                </Pressable>
               </View>
 
               <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
+              <Pressable onPress={() => putSpendVal("4")}>
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   4
                 </Text >
+              </Pressable>
+
+              <Pressable onPress={() => putSpendVal("5")}>
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   5
                 </Text >
+              </Pressable>
+
+              <Pressable onPress={() => putSpendVal("6")}>
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   6
                 </Text>
+              </Pressable>
+
               </View>
 
               <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
+
+              <Pressable onPress={() => putSpendVal("7")}>
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   7
-                </Text >
+                </Text>
+              </Pressable>
+
+              <Pressable onPress={() => putSpendVal("8")}>
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   8
                 </Text >
+              </Pressable>
+
+              <Pressable onPress={() => putSpendVal("9")}>
                 <Text style={{fontSize:16,color:'black',width:20,height:40}}>
                   9
                 </Text>
+              </Pressable>
+
               </View>
-              
 
               <View style={{flexDirection:'row',justifyContent:'space-between',width:150}}>
-                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
-                  .
-                </Text >
-                <Text style={{fontSize:16,color:'black',width:20,height:40}}>
-                  0
-                </Text >
+                <Pressable onPress={() => putSpendVal(".")}>
+                  <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                    .
+                  </Text >
+                </Pressable>
+
+                <Pressable onPress={() => putSpendVal("0")}>
+                  <Text style={{fontSize:16,color:'black',width:20,height:40}}>
+                    0
+                  </Text >
+                </Pressable>
+
               </View>
             </View>
 

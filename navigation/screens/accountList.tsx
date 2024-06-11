@@ -1,23 +1,26 @@
 import React, {useState,forwardRef,useImperativeHandle,useEffect} from 'react';
 import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-native';
-
-      interface Account {
-        id: number;
-        accountName: string;
-        accountAmount: string;
-        accountIcon: string;
-      }
-    const AccountList = forwardRef((props, ref) => {
-    
+    interface Account {
+      id: number;
+      accountName: string;
+      accountAmount: string;
+      accountIcon: string;
+    }
+    const AccountList = forwardRef((props,ref) => {
     const [accountList, setAccountList] = useState<Account[]>([])
-
     const [modalVisible, setModalVisible] = useState(false);
     const [totalVaule, setTotalVaule] = useState("");
+
+    const sendDataToParent = (id:number) => {
+      //通过props调用父组件方法
+      props.receiveDataToParent(id); // 调用父组件的方法
+    }
+  
+
+
     const putSpendVal = (i:string) => {
-      Alert.alert('Modal has been closed.');
       setModalVisible(false)
     }
-
     useEffect(() => {
       // debugger
        fetch('http://192.168.11.132:8080/acocunt/pay/list')
@@ -29,8 +32,6 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
         console.error(error);
       });
      })
-
-
     //暴漏给父组件调用
     useImperativeHandle(ref, () => ({
       doSetModalVisible() {
@@ -53,7 +54,7 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
             <View>
 
       {accountList.map((item,index) => (
-         <Pressable style={styles.assertsList} onPress={() => putSpendVal("1")}>
+         <Pressable style={styles.assertsList} onPress={() => sendDataToParent(item.id)}>
           <View style={styles.assertsList}>
             <View style={[styles.assertsListLeft,styles.assertsListLeftCenter]}>
             <Image
@@ -69,13 +70,7 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
           </View>
           </Pressable>
       ))}
-
-
-
-
-
       </View>
- 
           </View>
         </View>
       </Modal>
@@ -90,8 +85,6 @@ const styles = StyleSheet.create({
     marginBottom: -20,
   },
   modalView: {
-    margin: 20,
- 
     backgroundColor: 'white',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
