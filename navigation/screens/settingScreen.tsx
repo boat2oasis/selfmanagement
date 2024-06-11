@@ -1,10 +1,21 @@
-import React, {forwardRef,useState,useImperativeHandle} from 'react';
+import React, {forwardRef,useState,useImperativeHandle,useRef} from 'react';
 import {Alert, Modal, StyleSheet,
   TextInput, Text,Image, Pressable, View} from 'react-native';
 import AccountList from './accountList';
   const SettingScreen = forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
+
+  //设置子组件
+  const childRef = useRef(null);
+  //调用子组件显示方法
+  const callAccountListDoSetModalVisible = () => {
+    if (childRef.current) {
+      //调用子组件方法，不影响系统正常运行
+      childRef.current.doSetModalVisible();
+    }
+  }
+
   const putSpendVal = (i:string) => {
     setTotalVaule(totalVaule+i)
   }
@@ -13,6 +24,9 @@ import AccountList from './accountList';
       setModalVisible(!modalVisible);
     },
   }));
+
+
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -28,7 +42,7 @@ import AccountList from './accountList';
             <Text style={styles.modalText}>支出.消费</Text>
             <View style={{flexDirection: 'row',width:300}}>
             
-              <Pressable onPress={() => putSpendVal("1")}>
+              <Pressable onPress={() => callAccountListDoSetModalVisible()}>
                 <Text style={styles.modalText}>选择账户</Text>
               </Pressable>
 
@@ -51,7 +65,7 @@ import AccountList from './accountList';
                   />
                 </View>
             </View>
-            <AccountList></AccountList>
+            <AccountList  ref={childRef}/>
 
             <View style={{flexDirection:'row',width:280}}>
             <TextInput

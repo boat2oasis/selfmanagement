@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {View, ScrollView,Text, StyleSheet,Image, ImageBackground} from 'react-native';
+import AccountList from './accountList';
 const HomeScreen = () => 
   {
   interface Account {
@@ -24,6 +25,7 @@ const HomeScreen = () =>
   
   return (
    <ScrollView style={{backgroundColor:'#FFFFFF'}}>
+
    <ImageBackground
       source={require('./assets/background.png')}
       resizeMode="stretch"
@@ -75,6 +77,7 @@ const HomeScreen = () =>
           </View>
       ))}
     </View>
+
     </ImageBackground>
     </ScrollView>
   );

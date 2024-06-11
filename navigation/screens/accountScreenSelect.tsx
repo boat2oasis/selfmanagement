@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet,
   TextInput, Text,Image, Pressable, View,Keyboard, TouchableWithoutFeedback} from 'react-native';
   const SettingScreen = () => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
   const putSpendVal = (i:string) => {
+    Alert.alert('Modal has been closed.');
     setModalVisible(false)
-    //Alert.alert('Modal has been closed.');
   }
   return (
     <View style={styles.centeredView}>
@@ -30,10 +30,7 @@ import {Alert, Modal, StyleSheet,
           />
         <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>儲蓄卡-招商银行</Text>
         <Text style={{marginLeft:120,color:"#FA5A61"}}>100.00</Text>
-       
       </View>
-
-
 
       <Pressable onPress={() => putSpendVal("1")}>
         <View style={styles.assertsList}>
@@ -44,14 +41,9 @@ import {Alert, Modal, StyleSheet,
             
                 <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>微信支付</Text>
           <Text style={{marginLeft:168,color:"#FA5A61"}}>100.00</Text>
-          
         </View>
         </Pressable>
-     
-
-
-
-
+        
       <View style={styles.assertsList}>
       <Image
             source={require('./assets/zfb.png')}

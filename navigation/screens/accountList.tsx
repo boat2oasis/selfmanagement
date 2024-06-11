@@ -1,15 +1,20 @@
-import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet,
-  TextInput, Text,Image, Pressable, View,Keyboard, TouchableWithoutFeedback} from 'react-native';
-  const SettingScreen = () => {
-  const [modalVisible, setModalVisible] = useState(true);
-  const [totalVaule, setTotalVaule] = useState("");
-  const putSpendVal = (i:string) => {
-    setModalVisible(true)
-    //Alert.alert('Modal has been closed.');
-  }
+import React, {useState,forwardRef,useImperativeHandle} from 'react';
+import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-native';
+    const AccountList = forwardRef((props, ref) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [totalVaule, setTotalVaule] = useState("");
+    const putSpendVal = (i:string) => {
+      Alert.alert('Modal has been closed.');
+      setModalVisible(false)
+    }
+    //暴漏给父组件调用
+    useImperativeHandle(ref, () => ({
+      doSetModalVisible() {
+        setModalVisible(!modalVisible);
+      },
+    }));
   return (
-    <View style={styles.centeredView}>
+    //<View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -30,10 +35,7 @@ import {Alert, Modal, StyleSheet,
           />
         <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>儲蓄卡-招商银行</Text>
         <Text style={{marginLeft:120,color:"#FA5A61"}}>100.00</Text>
-       
       </View>
-
-
 
       <Pressable onPress={() => putSpendVal("1")}>
         <View style={styles.assertsList}>
@@ -44,14 +46,9 @@ import {Alert, Modal, StyleSheet,
             
                 <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>微信支付</Text>
           <Text style={{marginLeft:168,color:"#FA5A61"}}>100.00</Text>
-          
         </View>
         </Pressable>
-     
-
-
-
-
+        
       <View style={styles.assertsList}>
       <Image
             source={require('./assets/zfb.png')}
@@ -66,14 +63,9 @@ import {Alert, Modal, StyleSheet,
           </View>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
-    </View>
+    //</View>
   );
-};
+});
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
@@ -193,4 +185,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SettingScreen;
+export default AccountList;
