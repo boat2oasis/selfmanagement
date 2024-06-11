@@ -5,6 +5,12 @@ import AccountList from './accountList';
   const SettingScreen = forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
+  const [accountValue, setAccountValue] = useState("选择账户");
+
+  //const doSetAccountValue = (data) => {
+    //setAccountValue(data);
+  //};
+
 
   //设置子组件
   const childRef = useRef(null);
@@ -43,7 +49,7 @@ import AccountList from './accountList';
             <View style={{flexDirection: 'row',width:300}}>
             
               <Pressable onPress={() => callAccountListDoSetModalVisible()}>
-                <Text style={styles.modalText}>选择账户</Text>
+                <Text style={styles.modalText}>{accountValue}</Text>
               </Pressable>
 
 

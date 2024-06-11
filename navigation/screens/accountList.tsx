@@ -1,12 +1,36 @@
-import React, {useState,forwardRef,useImperativeHandle} from 'react';
+import React, {useState,forwardRef,useImperativeHandle,useEffect} from 'react';
 import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-native';
+
+      interface Account {
+        id: number;
+        accountName: string;
+        accountAmount: string;
+        accountIcon: string;
+      }
     const AccountList = forwardRef((props, ref) => {
+    
+    const [accountList, setAccountList] = useState<Account[]>([])
+
     const [modalVisible, setModalVisible] = useState(false);
     const [totalVaule, setTotalVaule] = useState("");
     const putSpendVal = (i:string) => {
       Alert.alert('Modal has been closed.');
       setModalVisible(false)
     }
+
+    useEffect(() => {
+      // debugger
+       fetch('http://192.168.11.132:8080/acocunt/pay/list')
+      .then(response => response.json())
+      .then(json => {
+       setAccountList(json.data)
+      })
+      .catch(error => {
+        console.error(error);
+      });
+     })
+
+
     //暴漏给父组件调用
     useImperativeHandle(ref, () => ({
       doSetModalVisible() {
@@ -28,35 +52,27 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
             <Text style={styles.modalText}>选择资产</Text>
             <View>
 
-      <View style={styles.assertsList}>
-      <Image
-            source={require('./assets/zs.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>儲蓄卡-招商银行</Text>
-        <Text style={{marginLeft:120,color:"#FA5A61"}}>100.00</Text>
-      </View>
-
-      <Pressable onPress={() => putSpendVal("1")}>
-        <View style={styles.assertsList}>
-        <Image
-              source={require('./assets/wx.png')}
-              style={{width: 28, height: 28}}
+      {accountList.map((item,index) => (
+         <Pressable style={styles.assertsList} onPress={() => putSpendVal("1")}>
+          <View style={styles.assertsList}>
+            <View style={[styles.assertsListLeft,styles.assertsListLeftCenter]}>
+            <Image
+                source={{ uri:item.accountIcon}}
+                style={{width: 28, height: 28}}
             />
-            
-                <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>微信支付</Text>
-          <Text style={{marginLeft:168,color:"#FA5A61"}}>100.00</Text>
-        </View>
-        </Pressable>
-        
-      <View style={styles.assertsList}>
-      <Image
-            source={require('./assets/zfb.png')}
-            style={{width: 28, height: 28}}
-          />
-        <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>支付宝</Text>
-        <Text style={{marginLeft:182,color:"#FA5A61"}}>100.00</Text>
-      </View>
+            <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>{item.accountName}</Text>
+            </View>
+
+            <View style={styles.assertsListRight}>
+              <Text style={{color:"#FA5A61"}}>{item.accountAmount}</Text>
+            </View>
+          </View>
+          </Pressable>
+      ))}
+
+
+
+
 
       </View>
  
@@ -183,6 +199,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+
+  assertsListLeftCenter:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  assertsListLeft: {
+    flex: 3, // 左侧占据剩余空间的1/2
+  },
+  assertsListRight: {
+    flex: 1, // 右侧占据剩余空间的1/2
+  },
+
 });
 
 export default AccountList;
