@@ -11,9 +11,10 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
     const [modalVisible, setModalVisible] = useState(false);
     const [totalVaule, setTotalVaule] = useState("");
 
-    const sendDataToParent = (id:number) => {
+    const sendDataToParent = (account:Account) => {
       //通过props调用父组件方法
-      props.receiveDataToParent(id); // 调用父组件的方法
+      props.receiveDataToParent(account); // 调用父组件的方法
+      setModalVisible(false)
     }
   
 
@@ -54,7 +55,7 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
             <View>
 
       {accountList.map((item,index) => (
-         <Pressable style={styles.assertsList} onPress={() => sendDataToParent(item.id)}>
+         <Pressable style={styles.assertsList} onPress={() => sendDataToParent(item)}>
           <View style={styles.assertsList}>
             <View style={[styles.assertsListLeft,styles.assertsListLeftCenter]}>
             <Image

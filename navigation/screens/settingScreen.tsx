@@ -36,8 +36,10 @@ import AccountList from './accountList';
     }
   }
 
-  const handleReceiveDataToParent = (id:number) => {
-    Alert.alert('id是'+id);
+  const handleReceiveDataToParent = (account) => {
+    setAccountValue(account.accountName)
+   // Alert.alert('id是'+account.id);
+    //Alert.alert('name是'+account.accountName);
   };
 
 
