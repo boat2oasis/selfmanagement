@@ -2,29 +2,24 @@ import React, {useState,forwardRef,useImperativeHandle,useEffect} from 'react';
 import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-native';
     interface Account {
       id: number;
-      accountName: string;
-      accountAmount: string;
-      accountIcon: string;
+      name: string;
+      icon: string;
     }
     const AccountList = forwardRef((props,ref) => {
     const [accountList, setAccountList] = useState<Account[]>([])
     const [modalVisible, setModalVisible] = useState(false);
     const [totalVaule, setTotalVaule] = useState("");
-
     const sendDataToParent = (account:Account) => {
       //通过props调用父组件方法
       props.receiveDataToParent(account); // 调用父组件的方法
       setModalVisible(false)
     }
-  
-
-
     const putSpendVal = (i:string) => {
       setModalVisible(false)
     }
     useEffect(() => {
       // debugger
-       fetch('http://192.168.11.132:8080/acocunt/pay/list')
+       fetch('http://192.168.11.132:8080/necessary/list')
       .then(response => response.json())
       .then(json => {
        setAccountList(json.data)
@@ -59,14 +54,10 @@ import {Alert, Modal, StyleSheet, Text,Image, Pressable, View} from 'react-nativ
           <View style={styles.assertsList}>
             <View style={[styles.assertsListLeft,styles.assertsListLeftCenter]}>
             <Image
-                source={{ uri:item.accountIcon}}
+                source={{ uri:item.icon}}
                 style={{width: 28, height: 28}}
             />
-            <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>{item.accountName}</Text>
-            </View>
-
-            <View style={styles.assertsListRight}>
-              <Text style={{color:"#FA5A61"}}>{item.accountAmount}</Text>
+            <Text style={{fontSize:14,color:'#404960',marginLeft:20}}>{item.name}</Text>
             </View>
           </View>
           </Pressable>

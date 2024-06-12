@@ -2,12 +2,13 @@ import React, {forwardRef,useState,useImperativeHandle,useRef} from 'react';
 import {Alert, Modal, StyleSheet,
   TextInput, Text,Image, Pressable, View} from 'react-native';
 import AccountList from './accountList';
-
+import Necessary from './necessary';
 
   const SettingScreen = forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
   const [accountValue, setAccountValue] = useState("选择账户");
+  const [necessaryValue, setNecessaryValue] = useState("支出类型");
 
   interface SpendMoney {
     id: number;
@@ -27,12 +28,21 @@ import AccountList from './accountList';
   
 
   //设置子组件
-  const childRef = useRef(null);
+  const childRef = useRef(AccountList);
+  const necessaryRef = useRef(Necessary);
   //调用子组件显示方法
   const callAccountListDoSetModalVisible = () => {
     if (childRef.current) {
       //调用子组件方法，不影响系统正常运行
       childRef.current.doSetModalVisible();
+    }
+  }
+
+
+  const callNecessaryDoSetModalVisible = () => {
+    if (necessaryRef.current) {
+      //调用子组件方法，不影响系统正常运行
+      necessaryRef.current.doSetModalVisible();
     }
   }
 
@@ -42,7 +52,9 @@ import AccountList from './accountList';
     //Alert.alert('name是'+account.accountName);
   };
 
-
+  const handleReceiveNecessaryDataToParent = (account) => {
+    setNecessaryValue(account.name)
+  };
 
   const putSpendVal = (i:string) => {
     setTotalVaule(totalVaule+i)
@@ -72,8 +84,10 @@ import AccountList from './accountList';
               </Pressable>
 
 
+              <Pressable onPress={() => callNecessaryDoSetModalVisible()}>
+              <Text style={styles.modalText}>{necessaryValue}</Text>
+              </Pressable>
 
-              <Text style={styles.modalText}>支出类型</Text>
               <Text style={styles.modalText}>消费时间</Text>
             </View>
             <View style={{flexDirection:'row',width:300}}> 
@@ -91,6 +105,8 @@ import AccountList from './accountList';
                 </View>
             </View>
             <AccountList receiveDataToParent={handleReceiveDataToParent}  ref={childRef}/>
+            <Necessary receiveDataToParent={handleReceiveNecessaryDataToParent}  ref={necessaryRef}/>
+
 
             <View style={{flexDirection:'row',width:280}}>
             <TextInput

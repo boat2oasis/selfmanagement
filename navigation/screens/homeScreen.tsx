@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {View, ScrollView,Text, StyleSheet,Image, ImageBackground} from 'react-native';
 import AccountList from './accountList';
+
 const HomeScreen = () => 
   {
   interface Account {
@@ -21,7 +22,7 @@ const HomeScreen = () =>
    .catch(error => {
      console.error(error);
    });
-  })
+  },[])
   
   return (
    <ScrollView style={{backgroundColor:'#FFFFFF'}}>
