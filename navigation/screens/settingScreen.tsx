@@ -1,15 +1,13 @@
 import React, {forwardRef,useState,useImperativeHandle,useRef} from 'react';
 import {Alert, Modal, StyleSheet,
   TextInput, Text,Image, Pressable, View} from 'react-native';
-import AccountList from './accountList';
-import Necessary from './necessary';
-
+  import AccountList from './accountList';
+  import Necessary from './necessary';
   const SettingScreen = forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [totalVaule, setTotalVaule] = useState("");
   const [accountValue, setAccountValue] = useState("选择账户");
   const [necessaryValue, setNecessaryValue] = useState("支出类型");
-
   interface SpendMoney {
     id: number;
     accountId: string;
@@ -17,7 +15,6 @@ import Necessary from './necessary';
     spendAmount: string;
     description: string;
   }
-
   const spendMoney: SpendMoney = {
     id: 1,
     accountId: "",
@@ -25,8 +22,32 @@ import Necessary from './necessary';
     spendAmount: "",
     description: ""
   };
-  
 
+  const sendPostRequest = async () => {
+    try {
+      const response = await fetch('http://192.168.11.132:8080/spendMoney/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          accountId: 1,
+          necessaryId: 1,
+          spendAmount: 1,
+          description: "fdsf",
+        }),
+      });
+      const jsonResponse = await response.json();
+      Alert.alert('请求返回是'+jsonResponse);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const saveSpendMoney = () => {
+    sendPostRequest()
+    setModalVisible(!modalVisible)
+  }
   //设置子组件
   const childRef = useRef(AccountList);
   const necessaryRef = useRef(Necessary);
@@ -38,14 +59,13 @@ import Necessary from './necessary';
     }
   }
 
-
   const callNecessaryDoSetModalVisible = () => {
     if (necessaryRef.current) {
       //调用子组件方法，不影响系统正常运行
       necessaryRef.current.doSetModalVisible();
     }
   }
-
+  
   const handleReceiveDataToParent = (account) => {
     setAccountValue(account.accountName)
    // Alert.alert('id是'+account.id);
@@ -203,8 +223,7 @@ import Necessary from './necessary';
             />
 
             <Pressable
-          
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => saveSpendMoney()}>
                 <View style={{backgroundColor:'#3CB278',width:50,height:120,
                 justifyContent: 'center', // 垂直居中
                 alignItems: 'center'}}>
